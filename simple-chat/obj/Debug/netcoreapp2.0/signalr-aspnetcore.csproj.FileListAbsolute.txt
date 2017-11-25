@@ -1,0 +1,10 @@
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/bin/Debug/netcoreapp2.0/signalr-aspnetcore.deps.json
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/bin/Debug/netcoreapp2.0/signalr-aspnetcore.runtimeconfig.json
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/bin/Debug/netcoreapp2.0/signalr-aspnetcore.runtimeconfig.dev.json
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/bin/Debug/netcoreapp2.0/signalr-aspnetcore.dll
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/bin/Debug/netcoreapp2.0/signalr-aspnetcore.pdb
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/obj/Debug/netcoreapp2.0/signalr-aspnetcore.csproj.CoreCompileInputs.cache
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/obj/Debug/netcoreapp2.0/signalr-aspnetcore.AssemblyInfoInputs.cache
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/obj/Debug/netcoreapp2.0/signalr-aspnetcore.AssemblyInfo.cs
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/obj/Debug/netcoreapp2.0/signalr-aspnetcore.dll
+/Users/radu/go/src/github.com/radu-matei/signalr-aspnetcore/obj/Debug/netcoreapp2.0/signalr-aspnetcore.pdb
