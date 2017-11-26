@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Streaming SignalR</title>
+</head>
+
+<body>
+    <div class="container">
+        <input type="button" id="startStreaming" value="Send" />
+        <ul id="discussion"></ul>
+    </div>
+    <script type="text/javascript" src="signalr-client-1.0.0-alpha2-final.js"></script>
+
+    <script type="text/javascript">
+        var transport = signalR.TransportType.WebSockets;
+        var connection = new signalR.HubConnection(`http://${document.location.host}/streaming`, { transport: transport });
+
+        var button = document.getElementById("startStreaming");
+
+        function startStreaming(){
+            connection.stream("StartStreaming").subscribe({
+                next: onStreamReceived,
+                err: function(err){
+                    console.log(err);
+                },
+                complete: function(){
+                    console.log("finished streaming");
+                }
+            });
+        }
+
+        connection.on("streamStarted", function(){
+            startStreaming();
+        });
+
+        button.addEventListener("click", event => {
+            connection.invoke("sendStreamInit");
+        });
+
+        function onStreamReceived(data){
+            console.log("received: " + data);
+            var liElement = document.createElement('li');
+            liElement.innerHTML = '<strong>' + "received" + '</strong>:&nbsp;&nbsp;' + data;
+            document.getElementById('discussion').appendChild(liElement);
+        }
+
+        connection.start();
+    </script>
+</body>
+
+</html>
