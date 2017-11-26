@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Chat</title>
+</head>
+
+<body>
+    <div class="container">
+        <input type="button" id="getValues" value="Send" />
+        <ul id="discussion"></ul>
+    </div>
+    <script type="text/javascript" src="signalr-client-1.0.0-alpha2-final.js"></script>
+
+    <script type="text/javascript">
+        var transport = signalR.TransportType.WebSockets;
+        var connection = new signalR.HubConnection(`http://${document.location.host}/notifications`, { transport: transport });
+
+        var button = document.getElementById("getValues");
+
+        connection.on('updateStuff', (value) => {
+            var liElement = document.createElement('li');
+            liElement.innerHTML = 'Someone caled a controller method with value: ' + value;
+            document.getElementById('discussion').appendChild(liElement);
+        });
+
+        button.addEventListener("click", event => {
+            fetch("http://localhost:5000/api/simple")
+                .then(function (data) {
+                    console.log(data);
+                })
+            .catch(function (error) {
+                console.log(err);
+            });   
+
+        });
+
+        connection.start();
+    </script>
+</body>
+
+</html>
