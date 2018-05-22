@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SignalR.Protocol;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace console_client_binary
 {
@@ -25,8 +29,10 @@ namespace console_client_binary
         {
             _connection = new HubConnectionBuilder()
                  .WithUrl("http://localhost:5000/chat")
-                 .WithConsoleLogger()
-                 .WithMessagePackProtocol()
+                 .ConfigureLogging(logging => {
+                     logging.AddConsole();
+                 })
+                 .AddMessagePackProtocol()
                  .Build();
 
             await _connection.StartAsync();
