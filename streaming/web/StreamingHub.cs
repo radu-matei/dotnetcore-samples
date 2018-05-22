@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -10,20 +11,24 @@ namespace streaming
 
         public void SendStreamInit()
         {
-            Clients.All.InvokeAsync("streamStarted");
+            Clients.All.SendAsync("streamStarted");
         }
 
-        public IObservable<string> StartStreaming()
+        public ChannelReader<string> StartStreaming()
         {
-            return Observable.Create(
-                async (IObserver<string> observer) =>
+            var channel = Channel.CreateUnbounded<string>();
+            _ = WriteToChannel(channel);
+            return channel.Reader;
+
+            async Task WriteToChannel(ChannelWriter<string> writer)
+            {
+                for (int i = 0; i < 10; i++)
                 {
-                    for (int i = 0; i < 10; i++)
-                    {
-                        observer.OnNext($"sending...{i}");
-                        await Task.Delay(1000);
-                    }
-                });
+                    await writer.WriteAsync($"sending... {i}");
+                    await Task.Delay(1000);
+                }
+                writer.Complete();
+            }
         }
     }
 }

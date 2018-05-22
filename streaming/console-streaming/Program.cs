@@ -24,7 +24,7 @@ namespace console_streaming
 
         public async static Task StartStreaming()
         {
-            var channel = await _connection.StreamAsync<string>("StartStreaming", CancellationToken.None);
+            var channel = await _connection.StreamAsChannelAsync<string>("StartStreaming", CancellationToken.None);
             while (await channel.WaitToReadAsync())
             {
                 while (channel.TryRead(out string message))
@@ -38,7 +38,6 @@ namespace console_streaming
         {
             _connection = new HubConnectionBuilder()
                  .WithUrl("http://localhost:5000/streaming")
-                 .WithConsoleLogger()
                  .Build();
 
             await _connection.StartAsync();

@@ -30,7 +30,7 @@ namespace streaming
             
             app.UseSignalR(routes =>
             {
-                routes.MapHub<StreamingHub>("streaming");
+                routes.MapHub<StreamingHub>("/streaming");
             });
         }
     }
