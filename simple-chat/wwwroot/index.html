@@ -11,11 +11,13 @@
         <input type="button" id="sendMessage" value="Send" />
         <ul id="discussion"></ul>
     </div>
-    <script type="text/javascript" src="signalr-client-1.0.0-alpha2-final.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.0.0-rc1-update1/dist/browser/signalr.min.js"></script>
 
     <script type="text/javascript">
-        var transport = signalR.TransportType.WebSockets;
-        var connection = new signalR.HubConnection(`http://${document.location.host}/chat`, { transport: transport });
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
 
         var messageInput = document.getElementById('message');
         var name = prompt('Enter your name:', '');

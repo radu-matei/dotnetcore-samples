@@ -29,7 +29,7 @@ namespace signalr_aspnetcore
             app.UseFileServer();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("chat");
+                routes.MapHub<ChatHub>("/chat");
             });
 
         }
