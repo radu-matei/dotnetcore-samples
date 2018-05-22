@@ -38,7 +38,7 @@ namespace signalr_mvc
             app.UseMvc();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<NotificationsHub>("notifications");
+                routes.MapHub<NotificationsHub>("/notifications");
             });
 
             app.UseFileServer();

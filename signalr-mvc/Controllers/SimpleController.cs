@@ -21,7 +21,7 @@ namespace signalr_mvc.Controllers
         [HttpGet]
         public string Get()
         {
-            _hubContext.Clients.All.InvokeAsync("updateStuff", "some random text");
+            _hubContext.Clients.All.SendAsync("updateStuff", "some random text");
             return "I have been called!";
         }
 
