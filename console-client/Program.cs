@@ -25,7 +25,6 @@ namespace console_client
         {
             _connection = new HubConnectionBuilder()
                  .WithUrl("http://localhost:5000/chat")
-                 .WithConsoleLogger()
                  .Build();
 
             await _connection.StartAsync();
