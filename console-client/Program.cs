@@ -1,36 +1,53 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace console_client
+namespace SignalR.Samples.ConsoleClient
 {
     class Program
     {
         private static HubConnection _connection;
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
-            StartConnectionAsync();
+            await StartConnection();
             _connection.On<string, string>("broadcastMessage", (name, message) =>
             {
                 Console.WriteLine($"{name} said: {message}");
             });
 
+            _connection.On("streamStarted", async () =>
+            {
+                await StartStreaming();
+            });
+
             Console.ReadLine();
-            DisposeAsync();
+            await Dispose();
         }
 
+        public async static Task StartStreaming()
+        {
+            var channel = await _connection.StreamAsChannelAsync<string>("StartStreaming", CancellationToken.None);
+            while (await channel.WaitToReadAsync())
+            {
+                while (channel.TryRead(out string message))
+                {
+                    Console.WriteLine($"Message received: {message}");
+                }
+            }
+        }
 
-        public static async Task StartConnectionAsync()
+        public static async Task StartConnection()
         {
             _connection = new HubConnectionBuilder()
-                 .WithUrl("http://localhost:5000/chat")
+                 .WithUrl("http://localhost:5000/demo")
                  .Build();
 
             await _connection.StartAsync();
         }
 
-        public static async Task DisposeAsync()
+        public static async Task Dispose()
         {
             await _connection.DisposeAsync();
         }

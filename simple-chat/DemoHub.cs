@@ -1,9 +1,10 @@
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace signalr_aspnetcore
+namespace SignalR.Samples.SimpleChat
 {
-    public class ChatHub : Hub
+    public class DemoHub : Hub
     {
         public override Task OnConnectedAsync()
         {
@@ -20,6 +21,28 @@ namespace signalr_aspnetcore
         {
             Clients.All.SendAsync("broadcastMessage", "system", $"{Context.ConnectionId} left the conversation");
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public void SendStreamInit()
+        {
+            Clients.All.SendAsync("streamStarted");
+        }
+
+        public ChannelReader<string> StartStreaming()
+        {
+            var channel = Channel.CreateUnbounded<string>();
+            _ = WriteToChannel(channel);
+            return channel.Reader;
+
+            async Task WriteToChannel(ChannelWriter<string> writer)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    await writer.WriteAsync($"sending... {i}");
+                    await Task.Delay(1000);
+                }
+                writer.Complete();
+            }
         }
     }
 }
