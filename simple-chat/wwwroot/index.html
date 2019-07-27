@@ -15,9 +15,19 @@
     <script
         src="https://cdn.jsdelivr.net/npm/@microsoft/signalr@3.0.0-preview7.19365.7/dist/browser/signalr.min.js"></script>
 
+
+    <!-- To enable the MessagePack protocol, uncomment the following two scripts (the MessagePack and SignalR MessagePack packages), 
+        together with the line that adds the protocol when building the connection.
+        
+    <script src="https://cdn.jsdelivr.net/npm/msgpack5@4.0.2/dist/msgpack5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/signalr-protocol-msgpack@3.0.0-preview7.19365.7/dist/browser/signalr-protocol-msgpack.min.js"></script> 
+    -->
+
     <script type="text/javascript">
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/demo")
+            // also uncomment the following line in order to enable the MessagePack protocol
+            // .withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
             .build();
 
         var messageInput = document.getElementById('message');

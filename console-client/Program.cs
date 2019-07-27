@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SignalR.Samples.ConsoleClient
 {
@@ -41,8 +42,10 @@ namespace SignalR.Samples.ConsoleClient
         public static async Task StartConnection()
         {
             _connection = new HubConnectionBuilder()
-                 .WithUrl("http://localhost:5000/demo")
-                 .Build();
+                .WithUrl("http://localhost:5000/demo")
+                //to enable message pack for the .NET client, uncomment the following line
+                //.AddMessagePackProtocol()
+                .Build();
 
             await _connection.StartAsync();
         }
