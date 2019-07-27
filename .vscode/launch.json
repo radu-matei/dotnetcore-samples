@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Start MVC Application",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-webapi-mvc",
+            "program": "${workspaceFolder}/webapi-mvc/bin/Debug/netcoreapp3.0/Mvc.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/webapi-mvc",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+            },
+        },
+        {
+            "name": "ConsoleClient",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-and-wait-client",
+            "program": "${workspaceFolder}/console-client/bin/Debug/netcoreapp3.0/ConsoleClient.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/console-client",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "SimpleChat",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/simple-chat/bin/Debug/netcoreapp3.0/SimpleChat.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/simple-chat",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+    ],
+    "compounds": [
+        {
+            "name": "SimpleChat and ConsoleClient",
+            "configurations": [
+                "SimpleChat",
+                "ConsoleClient"
+            ]
+        }
+    ]
+}
